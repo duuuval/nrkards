@@ -139,7 +139,16 @@ main { max-width: 1000px; margin: 0 auto; padding: 52px 24px 40px; }
 .step-n { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 11.5px; letter-spacing: 2.5px; color: var(--gold); text-transform: uppercase; margin-bottom: 10px; }
 .step-h { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: -0.3px; margin-bottom: 7px; }
 .step-d { font-size: 14.5px; color: var(--subtext); line-height: 1.6; }
-
+.step-d a {
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: var(--gold-line);
+  font-weight: 700;
+  transition: color 0.15s, text-decoration-color 0.15s;
+}
+.step-d a:hover { color: var(--gold); text-decoration-color: var(--gold); }
+  
 .order-wrap { background: var(--panel); border: 1px solid var(--border); border-radius: 18px; padding: 34px 28px; }
 .order-grid { display: grid; gap: 16px; }
 @media (min-width: 620px) { .order-grid { grid-template-columns: 1fr 1fr; } .order-grid .full { grid-column: 1 / -1; } }
@@ -315,12 +324,12 @@ footer .sib { margin-top: 10px; opacity: 0.8; }
       <div class="step">
         <div class="step-n">Around the block</div>
         <div class="step-h">Order for delivery</div>
-        <div class="step-d">Neighbors living <b>in the Woodlake neighborhood</b> can order ahead and we'll deliver to your mailbox on our weekly run. Pay by Venmo / Cash App once your pack's confirmed. Reach out below to get started.</div>
+        <div class="step-d">Neighbors living <b>in the Woodlake neighborhood</b> can order ahead and we'll deliver to your mailbox on our weekly run. Pay by Venmo / Cash App once your pack's confirmed — <a href="#order-pack">reach out below</a> to get started.</div>
       </div>
       <div class="step">
         <div class="step-n">Made to order</div>
         <div class="step-h">Request your custom pack(s)</div>
-        <div class="step-d">Want a pack built around one special Pokémon, or multiple packs for a special occasion? Tell us below and we'll track it down, check the price with you, and build it.</div>
+        <div class="step-d">Want a pack built around one special Pokémon, or multiple packs for a special occasion? <a href="#order">Tell us below</a> below and we'll track it down, check the price with you, and build it.</div>
       </div>
     </div>
   </section>
