@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>NRKards — Curated Pokémon Card Packs</title>
+
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
+<meta name="theme-color" content="#0a0a0a">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="NRKards">
+
+<meta name="description" content="Curated single-type Pokémon card packs, hand-built by a father-son team. Pick your type, get a pack built around it. Custom mascot packs and party favors available locally.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Nunito:wght@400;600;700;800&display=swap');
+:root {
+  --bg: #0a0a0a;
+  --bg2: #131313;
+  --panel: #181818;
+  --text: #f4f1e8;
+  --subtext: #9a968c;
+  --border: rgba(255,255,255,0.08);
+
+  --gold: #ffc706;
+  --gold-soft: rgba(255,199,6,0.16);
+  --gold-line: rgba(255,199,6,0.30);
+
+  --fire: #ff6b35;
+  --water: #3aa0ff;
+  --grass: #4fc04f;
+  --lightning: #ffd23c;
+  --psychic: #c44fff;
+  --colorless: #d8d8e8;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body {
+  background: var(--bg); color: var(--text);
+  font-family: 'Nunito', system-ui, sans-serif;
+  min-height: 100vh; overflow-x: hidden;
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+html { scroll-behavior: smooth; }
+
+header {
+  position: relative; padding: 48px 24px 34px; text-align: center;
+  border-bottom: 1px solid var(--border);
+  background: radial-gradient(ellipse at 50% -10%, rgba(255,199,6,0.10) 0%, transparent 60%);
+}
+h1 { margin: 0; line-height: 1; }
+h1 img {
+  display: inline-block; width: auto;
+  max-height: clamp(74px, 13vw, 132px); max-width: 88vw;
+  filter: drop-shadow(0 4px 22px rgba(255,199,6,0.22));
+}
+.header-sub {
+  margin-top: 20px; font-family: 'Archivo', sans-serif;
+  font-size: clamp(13px, 2vw, 15px); color: var(--subtext);
+  letter-spacing: 0.5px; font-weight: 600;
+}
+.header-sub b { color: var(--gold); font-weight: 800; }
+
+.marquee-wrap { overflow:hidden; border-bottom: 1px solid var(--border); background: var(--bg2); padding: 12px 0; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.marquee-inner {
+  display:inline-flex; gap: 38px; white-space:nowrap;
+  animation: marquee 30s linear infinite;
+  font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 13px;
+  letter-spacing: 2px; color: var(--subtext); text-transform: uppercase;
+}
+.c-fire { color: var(--fire); } .c-water { color: var(--water); } .c-grass { color: var(--grass); }
+.c-lightning { color: var(--lightning); } .c-psychic { color: var(--psychic); } .c-gold { color: var(--gold); }
+
+main { max-width: 1000px; margin: 0 auto; padding: 52px 24px 40px; }
+
+.eyebrow {
+  font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 12px;
+  letter-spacing: 3px; text-transform: uppercase; color: var(--gold);
+  margin-bottom: 12px; display: flex; align-items: center; gap: 10px;
+}
+.eyebrow::before { content:''; width: 22px; height: 2px; background: var(--gold); display:inline-block; }
+
+.section-h {
+  font-family: 'Archivo', sans-serif; font-weight: 900;
+  font-size: clamp(26px, 4.5vw, 38px); letter-spacing: -0.5px; line-height: 1.05; margin-bottom: 14px;
+}
+.section-lead { color: var(--subtext); font-size: 16px; line-height: 1.65; margin-bottom: 28px; max-width: 620px; }
+.section-lead b { color: var(--text); font-weight: 800; }
+
+.type-row { display:flex; flex-wrap:wrap; gap:9px; }
+.type-chip {
+  font-family: 'Archivo', sans-serif; font-weight: 700; letter-spacing: 1px; font-size: 14px;
+  padding: 8px 15px; border-radius: 999px; border: 1px solid currentColor; background: rgba(255,255,255,0.015);
+}
+.type-chip.fire { color: var(--fire); } .type-chip.water { color: var(--water); } .type-chip.grass { color: var(--grass); }
+.type-chip.lightning { color: var(--lightning); } .type-chip.psychic { color: var(--psychic); } .type-chip.colorless { color: var(--colorless); }
+
+.pack-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(282px, 1fr)); gap: 22px; }
+.pack-card {
+  position: relative; border-radius: 16px; background: var(--panel);
+  border: 1px solid var(--border); padding: 28px 26px 26px;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+.pack-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.55); border-color: rgba(255,255,255,0.16); }
+.pack-card.premium { border-color: var(--gold-line); background: linear-gradient(180deg, rgba(255,199,6,0.05) 0%, var(--panel) 40%); }
+.pack-card.premium:hover { border-color: var(--gold); box-shadow: 0 16px 44px rgba(0,0,0,0.55), 0 0 30px var(--gold-soft); }
+.pack-tier { font-family: 'Archivo', sans-serif; font-weight: 800; letter-spacing: 2.5px; font-size: 12px; text-transform: uppercase; color: var(--subtext); }
+.pack-card.premium .pack-tier { color: var(--gold); }
+.pack-name { font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 27px; letter-spacing: -0.5px; line-height: 1.05; margin: 5px 0 0; }
+.pack-price { font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 50px; line-height: 1; margin: 14px 0 4px; }
+.pack-card.premium .pack-price { color: var(--gold); }
+.pack-price small { font-size: 15px; color: var(--subtext); font-weight: 700; letter-spacing: 0.5px; }
+.pack-for { font-size: 13.5px; color: var(--subtext); font-weight: 700; margin-bottom: 18px; }
+.pack-list { list-style: none; display: grid; gap: 10px; }
+.pack-list li { font-size: 15px; line-height: 1.4; padding-left: 24px; position: relative; }
+.pack-list li::before { content: ''; position: absolute; left: 0; top: 7px; width: 7px; height: 7px; border-radius: 2px; background: var(--subtext); transform: rotate(45deg); }
+.pack-card.premium .pack-list li::before { background: var(--gold); }
+.pack-list li b { font-weight: 800; }
+.pack-badge {
+  position: absolute; top: 22px; right: 22px;
+  font-family: 'Archivo', sans-serif; font-weight: 800; letter-spacing: 1.5px; font-size: 10.5px;
+  text-transform: uppercase; color: #0a0a0a; background: var(--gold); padding: 5px 11px; border-radius: 6px;
+}
+
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
+.step { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 24px 22px; }
+.step-n { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 11.5px; letter-spacing: 2.5px; color: var(--gold); text-transform: uppercase; margin-bottom: 10px; }
+.step-h { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: -0.3px; margin-bottom: 7px; }
+.step-d { font-size: 14.5px; color: var(--subtext); line-height: 1.6; }
+
+.order-wrap { background: var(--panel); border: 1px solid var(--border); border-radius: 18px; padding: 34px 28px; }
+.order-grid { display: grid; gap: 16px; }
+@media (min-width: 620px) { .order-grid { grid-template-columns: 1fr 1fr; } .order-grid .full { grid-column: 1 / -1; } }
+.field label { display: block; font-family: 'Archivo', sans-serif; font-weight: 700; letter-spacing: 0.3px; font-size: 14px; color: var(--text); margin-bottom: 7px; }
+.field label .req { color: var(--gold); }
+.field label .opt { color: var(--subtext); font-size: 12px; font-weight: 600; }
+.field input, .field textarea {
+  width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
+  color: var(--text); font-family: 'Nunito', sans-serif; font-size: 15px; padding: 13px 14px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.field textarea { resize: vertical; min-height: 84px; }
+.field input::placeholder, .field textarea::placeholder { color: #55554e; }
+.field input:focus, .field textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold-soft); }
+.submit-btn {
+  font-family: 'Archivo', sans-serif; font-weight: 800; letter-spacing: 0.5px; font-size: 17px;
+  color: #0a0a0a; background: var(--gold); border: none; border-radius: 11px; padding: 15px 24px;
+  cursor: pointer; transition: transform 0.12s, box-shadow 0.12s; width: 100%;
+}
+.submit-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(255,199,6,0.30); }
+.submit-btn:active { transform: translateY(0); }
+.submit-btn:disabled { opacity: 0.55; cursor: default; transform: none; box-shadow: none; }
+.form-note { font-size: 13px; color: var(--subtext); line-height: 1.6; margin-top: 14px; }
+.form-note a { color: var(--gold); text-decoration: none; }
+.form-note a:hover { text-decoration: underline; }
+.form-status { display: none; text-align: center; padding: 28px 10px; }
+.form-status.show { display: block; }
+.form-status .big { font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 28px; letter-spacing: -0.5px; margin-bottom: 8px; }
+.form-status.ok .big { color: var(--gold); }
+.form-status.err .big { color: var(--fire); }
+.form-status p { color: var(--subtext); font-size: 15px; line-height: 1.6; }
+.form-status a { color: var(--gold); }
+
+.block { margin-top: 60px; }
+
+/* son's note — the human, hand-signed beat */
+.note {
+  max-width: 1000px; margin: 40px auto 0; padding: 0 24px;
+}
+.note-inner {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-left: 3px solid var(--gold);
+  border-radius: 12px; padding: 22px 24px;
+  font-size: 16px; line-height: 1.6; color: var(--text);
+}
+.note-inner .sig {
+  display: block; margin-top: 12px;
+  font-family: 'Archivo', sans-serif; font-weight: 800; letter-spacing: 0.3px;
+  color: var(--gold); font-size: 15px;
+}
+
+footer {
+  text-align:center; padding: 34px 24px; border-top: 1px solid var(--border);
+  font-family: 'Archivo', sans-serif; font-size: 13px; color: var(--subtext);
+  letter-spacing: 0.3px; line-height: 1.9; font-weight: 600;
+}
+footer strong { color: var(--gold); font-weight: 900; }
+footer a { color: var(--text); text-decoration: none; }
+footer a:hover { color: var(--gold); }
+footer .sib { margin-top: 10px; opacity: 0.8; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1><img src="/assets/logo.png" alt="NRKards"></h1>
+  <div class="header-sub">We're a <b>dad and his son</b>, building Pokémon packs from our kitchen table</div>
+</header>
+
+<div class="marquee-wrap">
+  <div class="marquee-inner" aria-hidden="true">
+    <span class="c-fire">🔥 FIRE</span><span class="c-water">💧 WATER</span><span class="c-grass">🌿 GRASS</span><span class="c-lightning">⚡ LIGHTNING</span><span class="c-psychic">🔮 PSYCHIC</span><span>⭐ COLORLESS</span><span class="c-gold">PICK YOUR TYPE</span>
+    <span class="c-fire">🔥 FIRE</span><span class="c-water">💧 WATER</span><span class="c-grass">🌿 GRASS</span><span class="c-lightning">⚡ LIGHTNING</span><span class="c-psychic">🔮 PSYCHIC</span><span>⭐ COLORLESS</span><span class="c-gold">PICK YOUR TYPE</span>
+  </div>
+</div>
+
+<div class="note">
+  <div class="note-inner">
+    Hi! I love Pokémon cards and I wanted to share the cool ones with people in our
+    neighborhood. My dad helps me find them and I help build the packs. I hope you get
+    a really good one!
+    <span class="sig">— [son's name], age 7</span>
+  </div>
+</div>
+
+<main>
+
+  <section>
+    <div class="eyebrow">What we make</div>
+    <h2 class="section-h">We build every pack by hand.</h2>
+    <p class="section-lead">
+      We pick one energy type, put that type's mascot up front, and stack the pack with
+      holos — no random dump, every card matched to the type. <b>Tell us your favorite and
+      we'll build the pack around it.</b>
+    </p>
+    <div class="type-row">
+      <span class="type-chip fire">🔥 Fire</span>
+      <span class="type-chip water">💧 Water</span>
+      <span class="type-chip grass">🌿 Grass</span>
+      <span class="type-chip lightning">⚡ Lightning</span>
+      <span class="type-chip psychic">🔮 Psychic</span>
+      <span class="type-chip colorless">⭐ Colorless</span>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="eyebrow">Our packs</div>
+    <h2 class="section-h">Pick the one that's you.</h2>
+    <div class="pack-grid">
+
+      <div class="pack-card">
+        <div class="pack-tier">Starter</div>
+        <div class="pack-name">The 10-Card</div>
+        <div class="pack-price">$5<small> / pack</small></div>
+        <div class="pack-for">Perfect for kids buying their own</div>
+        <ul class="pack-list">
+          <li>1 mascot face card in your type</li>
+          <li>3 holo &amp; reverse holo cards</li>
+          <li>6 more cards, all type-matched</li>
+        </ul>
+      </div>
+
+      <div class="pack-card premium">
+        <div class="pack-badge">Best Value</div>
+        <div class="pack-tier">Captain</div>
+        <div class="pack-name">The 15-Card</div>
+        <div class="pack-price">$10<small> / pack</small></div>
+        <div class="pack-for">The full build — with the big hit</div>
+        <ul class="pack-list">
+          <li>1 mascot face card in your type</li>
+          <li><b>1 ultra rare hit</b> — V, VMAX or ex</li>
+          <li>3 holo &amp; reverse holo cards</li>
+          <li>10 more cards, all type-matched</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="eyebrow">Where to find us</div>
+    <h2 class="section-h">Three ways to get one.</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-n">At the table</div>
+        <div class="step-h">Catch us out front</div>
+        <div class="step-d">When our table's at the end of the driveway, come say hi. Pick your type, grab a pack, and open it right there with us.</div>
+      </div>
+      <div class="step">
+        <div class="step-n">Around the block</div>
+        <div class="step-h">Order for delivery</div>
+        <div class="step-d">Neighbors can order ahead and we deliver to your porch on our weekly run. Pay by Venmo once your pack's confirmed.</div>
+      </div>
+      <div class="step">
+        <div class="step-n">Made to order</div>
+        <div class="step-h">Request your mascot</div>
+        <div class="step-d">Want a pack built around one special Pokémon? Tell us below and we'll track it down, check the price with you, and build it.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="order">
+    <div class="eyebrow">Let us build you one</div>
+    <h2 class="section-h">Tell us who to build around.</h2>
+    <p class="section-lead">
+      Give us the Pokémon you love — or tell us what it's for: birthday party favors, a
+      Valentine's pack, a whole team of types. We'll see what we can get our hands on, come
+      back to you with the price, and build it. <b>You're just asking — nothing's owed</b>
+      until we say yes and you say go.
+    </p>
+
+    <div class="order-wrap">
+      <form id="orderForm" class="order-grid" novalidate>
+        <div class="field">
+          <label for="name">Your name <span class="req">*</span></label>
+          <input id="name" name="name" type="text" autocomplete="name" placeholder="Who should we reply to?" required>
+        </div>
+        <div class="field">
+          <label for="kid">Kid's name <span class="opt">(optional)</span></label>
+          <input id="kid" name="kid" type="text" placeholder="Who's the pack for?">
+        </div>
+        <div class="field full">
+          <label for="pokemon">Favorite Pokémon / request <span class="req">*</span></label>
+          <input id="pokemon" name="pokemon" type="text" placeholder="e.g. Squirtle, Mewtwo, a Fire team…" required>
+        </div>
+        <div class="field full">
+          <label for="contact">Email or phone <span class="req">*</span></label>
+          <input id="contact" name="contact" type="text" autocomplete="email" placeholder="How we reach you to confirm" required>
+        </div>
+        <div class="field full">
+          <label for="notes">Occasion or notes <span class="opt">(optional)</span></label>
+          <textarea id="notes" name="notes" placeholder="Birthday party favors, Valentine's, how many packs, delivery vs. pickup… anything goes."></textarea>
+        </div>
+        <div class="field full">
+          <button type="submit" class="submit-btn" id="submitBtn">Send my request</button>
+          <p class="form-note">
+            We'll get back to you to confirm what's available and the price before any payment.
+            Prefer email? Reach us at <a href="mailto:hello@nrkards.com">hello@nrkards.com</a>.
+          </p>
+        </div>
+      </form>
+
+      <div class="form-status ok" id="statusOk">
+        <div class="big">Request sent!</div>
+        <p>We'll reach out soon to confirm your pack and the price.<br>Keep an eye on your inbox or texts.</p>
+      </div>
+
+      <div class="form-status err" id="statusErr">
+        <div class="big">That didn't go through</div>
+        <p>Mind trying again in a moment? Or email us at <a href="mailto:hello@nrkards.com">hello@nrkards.com</a> and we'll take it from there.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <strong>NRKards</strong> &nbsp;·&nbsp; Just a dad and his son &nbsp;·&nbsp; Delivered around the neighborhood<br>
+  <a href="mailto:hello@nrkards.com">hello@nrkards.com</a>
+  <div class="sib">Brother to <a href="https://nrkade.com">NRKade</a></div>
+</footer>
+
+<script>
+const SHEET_ENDPOINT = 'PASTE_YOUR_APPS_SCRIPT_URL_HERE';
+
+const form = document.getElementById('orderForm');
+const submitBtn = document.getElementById('submitBtn');
+const statusOk = document.getElementById('statusOk');
+const statusErr = document.getElementById('statusErr');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  statusErr.classList.remove('show');
+
+  const required = ['name', 'pokemon', 'contact'];
+  for (const id of required) {
+    const el = document.getElementById(id);
+    if (!el.value.trim()) { el.focus(); el.style.borderColor = 'var(--fire)'; return; }
+  }
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Sending…';
+
+  const payload = {
+    name: form.name.value.trim(),
+    kid: form.kid.value.trim(),
+    pokemon: form.pokemon.value.trim(),
+    contact: form.contact.value.trim(),
+    notes: form.notes.value.trim(),
+    submittedAt: new Date().toISOString(),
+  };
+
+  try {
+    await fetch(SHEET_ENDPOINT, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload),
+    });
+    form.style.display = 'none';
+    statusOk.classList.add('show');
+    statusOk.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  } catch (err) {
+    statusErr.classList.add('show');
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Send my request';
+  }
+});
+
+['name','pokemon','contact'].forEach(id => {
+  document.getElementById(id).addEventListener('input', (e) => { e.target.style.borderColor = ''; });
+});
+</script>
+</body>
+</html>
