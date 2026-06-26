@@ -367,7 +367,7 @@ footer .sib { margin-top: 10px; opacity: 0.8; }
       <div class="step">
         <div class="step-n">Made to order</div>
         <div class="step-h">Request your custom pack(s)</div>
-        <div class="step-d">Want a pack built around one special Pokémon, or multiple packs for a special occasion? <a href="#order">Tell us below</a> below and we'll track it down, check the price with you, and build it.</div>
+        <div class="step-d">Want a pack built around one special Pokémon, or multiple packs for a special occasion? <a href="#order">Tell us below</a> and we'll track it down, check the price with you, and build it.</div>
       </div>
     </div>
   </section>
@@ -505,7 +505,7 @@ footer .sib { margin-top: 10px; opacity: 0.8; }
 <footer>
   <strong>NRKards</strong> &nbsp;·&nbsp; Just a boy and his dad in their driveway and around the neighborhood<br>
   <a href="mailto:hello@nrkards.com">hello@nrkards.com</a>
-  <div class="sib">Like playing games? Check out our creations: <a href="https://nrkade.com" target="_blank" rel="noopener">NRKade</a></div></div>
+  <div class="sib">Like playing games? Check out our creations: <a href="https://nrkade.com" target="_blank" rel="noopener">NRKade</a></div>
 </footer>
 
 <script>
@@ -592,7 +592,15 @@ form.addEventListener('submit', async (e) => {
       if (!energySel.value) energySel.selectedIndex = 0;
     }
   });
-
+  // nudge the notes placeholder when "Multiple / not sure" is chosen
+  energySel.addEventListener('change', () => {
+    const notes = document.getElementById('p_notes');
+    if (energySel.value === 'Multiple / not sure') {
+      notes.placeholder = "Tell us the types you want (e.g. Fire, Water, Grass for 3 packs) or describe what you're after.";
+    } else {
+      notes.placeholder = "Want more than one pack? A note for us? Tell us here.";
+    }
+  });
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     err.classList.remove('show');
@@ -625,7 +633,7 @@ form.addEventListener('submit', async (e) => {
       ok.scrollIntoView({ behavior: 'smooth', block: 'center' });
     } catch (e2) {
       err.classList.add('show');
-      btn.disabled = false; btn.textContent = 'Send my order';
+      btn.disabled = false; btn.textContent = 'Send my request';
     }
   });
 
