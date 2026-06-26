@@ -233,11 +233,10 @@ footer .sib { margin-top: 10px; opacity: 0.8; }
     <div class="eyebrow">What we make</div>
     <h2 class="section-h">Hand-built packs</h2>
      <p class="section-lead">
-      No random dumps. We sort, match, and stack every pack ourselves — built around a
-      type, a favorite Pokémon, or whatever you're after. <b>Tell us what you love and
-      we'll put it together for you.</b>
+     We sort and stack every pack ourselves — built around an energy type, a favorite Pokémon,
+     or whatever you're after. <b>Tell us what you love and we'll put it together for you.</b>
     </p>
-    <div class="type-row">
+    <!-- <div class="type-row">
        <span class="type-chip fire">🔥 Fire</span>
        <span class="type-chip water">💧 Water</span>
        <span class="type-chip grass">🌿 Grass</span>
@@ -248,7 +247,7 @@ footer .sib { margin-top: 10px; opacity: 0.8; }
        <span class="type-chip metal">⚙️ Metal</span>
        <span class="type-chip dragon">🐉 Dragon</span>
        <span class="type-chip colorless">⭐ Colorless</span>
-     </div>
+     </div> -->
   </section>
 
   <section class="block">
@@ -263,7 +262,7 @@ footer .sib { margin-top: 10px; opacity: 0.8; }
         <div class="pack-for">Perfect for kids buying their own</div>
         <ul class="pack-list">
           <li>1 team "captain" card</li>
-          <li>3 holo / reverse holo cards</li>
+          <li>3 shiny holo / reverse holo cards</li>
           <li>6 common cards</li>
           <li>All cards the same energy type</li>
         </ul>
@@ -272,13 +271,13 @@ footer .sib { margin-top: 10px; opacity: 0.8; }
       <div class="pack-card premium">
         <!-- <div class="pack-badge">Best Value</div> -->
         <!-- <div class="pack-tier">Captain</div> -->
-        <div class="pack-name">15-Card Energy Team HIT Pack</div>
+        <div class="pack-name">15-Card Energy HIT Pack</div>
         <div class="pack-price">$10<small> / pack</small></div>
         <div class="pack-for">The full build — with the big hit</div>
         <ul class="pack-list">
           <li>1 team "captain" card</li>
           <li><b>1 ultra rare "hit" card</b> — V, VMAX or ex</li>
-          <li>3 holo / reverse holo cards</li>
+          <li>3 shiny holo / reverse holo cards</li>
           <li>10 common cards</li>
           <li>All cards the same energy type</li>
         </ul>
@@ -295,9 +294,10 @@ footer .sib { margin-top: 10px; opacity: 0.8; }
         <div class="pack-price">$7<small> / pack</small></div>
         <div class="pack-for">All sparkle, no filler</div>
         <ul class="pack-list">
-          <li><b>10 cards, every one shiny</b></li>
-          <li>Holos &amp; reverse holos, mixed energy types</li>
+          <li><b>10 cards - every one shiny</b></li>
+          <li>Holos &amp; reverse holos</li>
           <li>A surprise every card — no commons</li>
+          <li> Mixed energy types</li>
         </ul>
       </div>
       ════════════════════════════════════════════════════════════════════════ -->
@@ -321,8 +321,8 @@ footer .sib { margin-top: 10px; opacity: 0.8; }
       </div>
       <div class="step">
         <div class="step-n">Made to order</div>
-        <div class="step-h">Request your mascot</div>
-        <div class="step-d">Want a pack built around one special Pokémon? Tell us below and we'll track it down, check the price with you, and build it.</div>
+        <div class="step-h">Request your custom pack(s)</div>
+        <div class="step-d">Want a pack built around one special Pokémon, or multiple packs for a special occasion? Tell us below and we'll track it down, check the price with you, and build it.</div>
       </div>
     </div>
   </section>
@@ -332,9 +332,9 @@ footer .sib { margin-top: 10px; opacity: 0.8; }
     <div class="eyebrow">Order for delivery</div>
     <h2 class="section-h">Grab a pack, we'll bring it.</h2>
     <p class="section-lead">
-      Pick your pack and energy type, tell us where to drop it, and we'll deliver on our next
-      neighborhood run. <b>No payment here</b> — we'll confirm it's ready and send you the
-      Venmo or Cash App info by email first.
+      Pick your pack, your type, and where to drop it. We'll email to confirm it's ready
+      and send you the Venmo or Cash App info — <b>no payment here</b> — then deliver on
+      our next neighborhood run.
     </p>
 
     <div class="order-wrap">
@@ -345,11 +345,11 @@ footer .sib { margin-top: 10px; opacity: 0.8; }
         </div>
         <div class="field">
           <label for="p_email">Email <span class="req">*</span></label>
-          <input id="p_email" name="email" type="email" autocomplete="email" placeholder="Where we send confirmation + payment" required>
+          <input id="p_email" name="email" type="email" autocomplete="email" placeholder="Where we send confirmation + payment info" required>
         </div>
         <div class="field full">
           <label for="p_address">Delivery address <span class="req">*</span></label>
-          <input id="p_address" name="address" type="text" autocomplete="street-address" placeholder="Street address for porch drop-off" required>
+          <input id="p_address" name="address" type="text" autocomplete="street-address" placeholder="Street address for mailbox drop-off" required>
         </div>
         <div class="field">
           <label for="p_pack">Which pack <span class="req">*</span></label>
@@ -378,10 +378,10 @@ footer .sib { margin-top: 10px; opacity: 0.8; }
         </div>
         <div class="field full">
           <label for="p_notes">Anything else <span class="opt">(optional)</span></label>
-          <textarea id="p_notes" name="notes" placeholder="Best day/time for delivery, gate code, more than one pack… anything that helps."></textarea>
+          <textarea id="p_notes" name="notes" placeholder="Want more than one pack? A note for us? Tell us here."></textarea>
         </div>
         <div class="field full">
-          <button type="submit" class="submit-btn" id="packBtn">Send my order</button>
+          <button type="submit" class="submit-btn" id="packBtn">Send my request</button>
           <p class="form-note">
             We'll email to confirm your pack is ready and send payment info before delivery.
             Prefer to ask first? Reach us at <a href="mailto:hello@nrkards.com">hello@nrkards.com</a>.
@@ -426,7 +426,7 @@ footer .sib { margin-top: 10px; opacity: 0.8; }
           <input id="pokemon" name="pokemon" type="text" placeholder="e.g. Squirtle, Mewtwo, a Fire team…" required>
         </div>
         <div class="field full">
-          <label for="contact">Email or phone <span class="req">*</span></label>
+          <label for="contact">Email<span class="req">*</span></label>
           <input id="contact" name="contact" type="text" autocomplete="email" placeholder="How we reach you to confirm" required>
         </div>
         <div class="field full">
@@ -457,9 +457,9 @@ footer .sib { margin-top: 10px; opacity: 0.8; }
 </main>
 
 <footer>
-  <strong>NRKards</strong> &nbsp;·&nbsp; Just a dad and his son &nbsp;·&nbsp; Delivered around the neighborhood<br>
+  <strong>NRKards</strong> &nbsp;·&nbsp; Just a boy and his dad in their driveway and around the neighborhood<br>
   <a href="mailto:hello@nrkards.com">hello@nrkards.com</a>
-  <div class="sib">Brother to <a href="https://nrkade.com">NRKade</a></div>
+  <div class="sib">Like playing games? Check out our creations: <a href="https://nrkade.com" target="_blank" rel="noopener">NRKade</a></div></div>
 </footer>
 
 <script>
