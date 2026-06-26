@@ -35,6 +35,10 @@
   --grass: #4fc04f;
   --lightning: #ffd23c;
   --psychic: #c44fff;
+  --fighting: #c0533f;
+  --darkness: #8a7fff;
+  --metal: #9fb3c8;
+  --dragon: #5fd0c0;
   --colorless: #d8d8e8;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -76,6 +80,8 @@ h1 img {
 }
 .c-fire { color: var(--fire); } .c-water { color: var(--water); } .c-grass { color: var(--grass); }
 .c-lightning { color: var(--lightning); } .c-psychic { color: var(--psychic); } .c-gold { color: var(--gold); }
+.c-fighting { color: var(--fighting); } .c-darkness { color: var(--darkness); }
+.c-metal { color: var(--metal); } .c-dragon { color: var(--dragon); }  
 
 main { max-width: 1000px; margin: 0 auto; padding: 52px 24px 40px; }
 
@@ -100,7 +106,9 @@ main { max-width: 1000px; margin: 0 auto; padding: 52px 24px 40px; }
 }
 .type-chip.fire { color: var(--fire); } .type-chip.water { color: var(--water); } .type-chip.grass { color: var(--grass); }
 .type-chip.lightning { color: var(--lightning); } .type-chip.psychic { color: var(--psychic); } .type-chip.colorless { color: var(--colorless); }
-
+.type-chip.fighting { color: var(--fighting); } .type-chip.darkness { color: var(--darkness); }
+.type-chip.metal { color: var(--metal); } .type-chip.dragon { color: var(--dragon); }
+  
 .pack-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(282px, 1fr)); gap: 22px; }
 .pack-card {
   position: relative; border-radius: 16px; background: var(--panel);
@@ -200,22 +208,22 @@ footer .sib { margin-top: 10px; opacity: 0.8; }
 
 <header>
   <h1><img src="/assets/logo.png" alt="NRKards"></h1>
-  <div class="header-sub">We're a <b>dad and his son</b>, building Pokémon packs from our kitchen table</div>
+  <div class="header-sub">A <b>father & son</b> team hand-building Pokémon packs from our dining room table</div>
 </header>
 
 <div class="marquee-wrap">
   <div class="marquee-inner" aria-hidden="true">
-    <span class="c-fire">🔥 FIRE</span><span class="c-water">💧 WATER</span><span class="c-grass">🌿 GRASS</span><span class="c-lightning">⚡ LIGHTNING</span><span class="c-psychic">🔮 PSYCHIC</span><span>⭐ COLORLESS</span><span class="c-gold">PICK YOUR TYPE</span>
-    <span class="c-fire">🔥 FIRE</span><span class="c-water">💧 WATER</span><span class="c-grass">🌿 GRASS</span><span class="c-lightning">⚡ LIGHTNING</span><span class="c-psychic">🔮 PSYCHIC</span><span>⭐ COLORLESS</span><span class="c-gold">PICK YOUR TYPE</span>
+    <span class="c-fire">🔥 FIRE</span><span class="c-water">💧 WATER</span><span class="c-grass">🌿 GRASS</span><span class="c-lightning">⚡ LIGHTNING</span><span class="c-psychic">🔮 PSYCHIC</span><span class="c-fighting">✊ FIGHTING</span><span class="c-darkness">🌑 DARKNESS</span><span class="c-metal">⚙️ METAL</span><span class="c-dragon">🐉 DRAGON</span><span>⭐ COLORLESS</span><span class="c-gold">PICK YOUR TYPE</span>
+    <span class="c-fire">🔥 FIRE</span><span class="c-water">💧 WATER</span><span class="c-grass">🌿 GRASS</span><span class="c-lightning">⚡ LIGHTNING</span><span class="c-psychic">🔮 PSYCHIC</span><span class="c-fighting">✊ FIGHTING</span><span class="c-darkness">🌑 DARKNESS</span><span class="c-metal">⚙️ METAL</span><span class="c-dragon">🐉 DRAGON</span><span>⭐ COLORLESS</span><span class="c-gold">PICK YOUR TYPE</span>
   </div>
 </div>
 
 <div class="note">
   <div class="note-inner">
-    Hi! I love Pokémon cards and I wanted to share the cool ones with people in our
-    neighborhood. My dad helps me find them and I help build the packs. I hope you get
+    Hi! I love Pokémon cards and I wanted to share them with people in our
+    neighborhood. My dad finds the cards and I build the packs. I hope you get
     a really good one!
-    <span class="sig">— [son's name], age 7</span>
+    <span class="sig">— Nolan, age 7</span>
   </div>
 </div>
 
@@ -223,20 +231,24 @@ footer .sib { margin-top: 10px; opacity: 0.8; }
 
   <section>
     <div class="eyebrow">What we make</div>
-    <h2 class="section-h">We build every pack by hand.</h2>
-    <p class="section-lead">
-      We pick one energy type, put that type's mascot up front, and stack the pack with
-      holos — no random dump, every card matched to the type. <b>Tell us your favorite and
-      we'll build the pack around it.</b>
+    <h2 class="section-h">Hand-built packs</h2>
+     <p class="section-lead">
+      No random dumps. We sort, match, and stack every pack ourselves — built around a
+      type, a favorite Pokémon, or whatever you're after. <b>Tell us what you love and
+      we'll put it together for you.</b>
     </p>
     <div class="type-row">
-      <span class="type-chip fire">🔥 Fire</span>
-      <span class="type-chip water">💧 Water</span>
-      <span class="type-chip grass">🌿 Grass</span>
-      <span class="type-chip lightning">⚡ Lightning</span>
-      <span class="type-chip psychic">🔮 Psychic</span>
-      <span class="type-chip colorless">⭐ Colorless</span>
-    </div>
+       <span class="type-chip fire">🔥 Fire</span>
+       <span class="type-chip water">💧 Water</span>
+       <span class="type-chip grass">🌿 Grass</span>
+       <span class="type-chip lightning">⚡ Lightning</span>
+       <span class="type-chip psychic">🔮 Psychic</span>
+       <span class="type-chip fighting">✊ Fighting</span>
+       <span class="type-chip darkness">🌑 Darkness</span>
+       <span class="type-chip metal">⚙️ Metal</span>
+       <span class="type-chip dragon">🐉 Dragon</span>
+       <span class="type-chip colorless">⭐ Colorless</span>
+     </div>
   </section>
 
   <section class="block">
@@ -245,31 +257,52 @@ footer .sib { margin-top: 10px; opacity: 0.8; }
     <div class="pack-grid">
 
       <div class="pack-card">
-        <div class="pack-tier">Starter</div>
-        <div class="pack-name">The 10-Card</div>
+        <!-- <div class="pack-tier">Starter</div> -->
+        <div class="pack-name">10-Card Energy Team Pack</div>
         <div class="pack-price">$5<small> / pack</small></div>
         <div class="pack-for">Perfect for kids buying their own</div>
         <ul class="pack-list">
-          <li>1 mascot face card in your type</li>
-          <li>3 holo &amp; reverse holo cards</li>
-          <li>6 more cards, all type-matched</li>
+          <li>1 team "captain" card</li>
+          <li>3 holo / reverse holo cards</li>
+          <li>6 common cards</li>
+          <li>All cards the same energy type</li>
         </ul>
       </div>
 
       <div class="pack-card premium">
-        <div class="pack-badge">Best Value</div>
-        <div class="pack-tier">Captain</div>
-        <div class="pack-name">The 15-Card</div>
+        <!-- <div class="pack-badge">Best Value</div> -->
+        <!-- <div class="pack-tier">Captain</div> -->
+        <div class="pack-name">15-Card Energy Team HIT Pack</div>
         <div class="pack-price">$10<small> / pack</small></div>
         <div class="pack-for">The full build — with the big hit</div>
         <ul class="pack-list">
-          <li>1 mascot face card in your type</li>
-          <li><b>1 ultra rare hit</b> — V, VMAX or ex</li>
-          <li>3 holo &amp; reverse holo cards</li>
-          <li>10 more cards, all type-matched</li>
+          <li>1 team "captain" card</li>
+          <li><b>1 ultra rare "hit" card</b> — V, VMAX or ex</li>
+          <li>3 holo / reverse holo cards</li>
+          <li>10 common cards</li>
+          <li>All cards the same energy type</li>
         </ul>
       </div>
 
+       <!-- ════════════════════════════════════════════════════════════════════
+           SHINY PACK — experimental tier. To launch: delete this comment line
+           and the closing one below. To pull it: wrap it back up. The grid
+           auto-flows to 3 columns on desktop / 1 on mobile, so it just works.
+           Tweak price, card count, and what's inside as you dial it in.
+      ═════════════════════════════════════════════════════════════════════════
+      <div class="pack-card">
+        <!-- <div class="pack-tier">Shiny</div> -->
+        <div class="pack-name">The Shiny Pack</div>
+        <div class="pack-price">$7<small> / pack</small></div>
+        <div class="pack-for">All sparkle, no filler</div>
+        <ul class="pack-list">
+          <li><b>10 cards, every one shiny</b></li>
+          <li>Holos &amp; reverse holos, mixed energy types</li>
+          <li>A surprise every card — no commons</li>
+        </ul>
+      </div>
+      ════════════════════════════════════════════════════════════════════════ -->
+      
     </div>
   </section>
 
@@ -280,12 +313,12 @@ footer .sib { margin-top: 10px; opacity: 0.8; }
       <div class="step">
         <div class="step-n">At the table</div>
         <div class="step-h">Catch us out front</div>
-        <div class="step-d">When our table's at the end of the driveway, come say hi. Pick your type, grab a pack, and open it right there with us.</div>
+        <div class="step-d">Keep an eye on the Woodlake Neighbors Facebook page or just stop by when you see the table at the end of the driveway. Grab your pack and open it right there with us.</div>
       </div>
       <div class="step">
         <div class="step-n">Around the block</div>
         <div class="step-h">Order for delivery</div>
-        <div class="step-d">Neighbors can order ahead and we deliver to your porch on our weekly run. Pay by Venmo once your pack's confirmed.</div>
+        <div class="step-d">Neighbors living <b>in the Woodlake neighborhood</b> can order ahead and we'll deliver to your mailbox on our weekly run. Pay by Venmo / Cash App once your pack's confirmed. Reach out below to get started.</div>
       </div>
       <div class="step">
         <div class="step-n">Made to order</div>
@@ -295,6 +328,80 @@ footer .sib { margin-top: 10px; opacity: 0.8; }
     </div>
   </section>
 
+  <!-- ORDER A PACK (Form 1 — known SKU, fast path) -->
+  <section class="block" id="order-pack">
+    <div class="eyebrow">Order for delivery</div>
+    <h2 class="section-h">Grab a pack, we'll bring it.</h2>
+    <p class="section-lead">
+      Pick your pack and energy type, tell us where to drop it, and we'll deliver on our next
+      neighborhood run. <b>No payment here</b> — we'll confirm it's ready and send you the
+      Venmo or Cash App info by email first.
+    </p>
+
+    <div class="order-wrap">
+      <form id="packForm" class="order-grid" novalidate>
+        <div class="field">
+          <label for="p_name">Your name <span class="req">*</span></label>
+          <input id="p_name" name="name" type="text" autocomplete="name" placeholder="Who should we reply to?" required>
+        </div>
+        <div class="field">
+          <label for="p_email">Email <span class="req">*</span></label>
+          <input id="p_email" name="email" type="email" autocomplete="email" placeholder="Where we send confirmation + payment" required>
+        </div>
+        <div class="field full">
+          <label for="p_address">Delivery address <span class="req">*</span></label>
+          <input id="p_address" name="address" type="text" autocomplete="street-address" placeholder="Street address for porch drop-off" required>
+        </div>
+        <div class="field">
+          <label for="p_pack">Which pack <span class="req">*</span></label>
+          <select id="p_pack" name="pack" required>
+            <option value="" disabled selected>Choose a pack…</option>
+            <option value="10-card team pack">10-Card Team Pack — $5</option>
+            <option value="15-card team HIT pack">15-Card Team HIT Pack — $10</option>
+            <!-- <option value="shiny pack">Shiny Pack — $7</option> -->
+          </select>
+        </div>
+        <div class="field">
+          <label for="p_energy">Energy type <span class="req">*</span></label>
+          <select id="p_energy" name="energy" required>
+            <option value="" disabled selected>Choose a type…</option>
+            <option value="Fire">🔥 Fire</option>
+            <option value="Water">💧 Water</option>
+            <option value="Grass">🌿 Grass</option>
+            <option value="Lightning">⚡ Lightning</option>
+            <option value="Psychic">🔮 Psychic</option>
+            <option value="Fighting">✊ Fighting</option>
+            <option value="Darkness">🌑 Darkness</option>
+            <option value="Metal">⚙️ Metal</option>
+            <option value="Dragon">🐉 Dragon</option>
+            <option value="Colorless">⭐ Colorless</option>
+          </select>
+        </div>
+        <div class="field full">
+          <label for="p_notes">Anything else <span class="opt">(optional)</span></label>
+          <textarea id="p_notes" name="notes" placeholder="Best day/time for delivery, gate code, more than one pack… anything that helps."></textarea>
+        </div>
+        <div class="field full">
+          <button type="submit" class="submit-btn" id="packBtn">Send my order</button>
+          <p class="form-note">
+            We'll email to confirm your pack is ready and send payment info before delivery.
+            Prefer to ask first? Reach us at <a href="mailto:hello@nrkards.com">hello@nrkards.com</a>.
+          </p>
+        </div>
+      </form>
+
+      <div class="form-status ok" id="packOk">
+        <div class="big">Order sent!</div>
+        <p>We'll email you to confirm it's ready and send payment info,<br>then bring it on our next run.</p>
+      </div>
+
+      <div class="form-status err" id="packErr">
+        <div class="big">That didn't go through</div>
+        <p>Mind trying again in a moment? Or email us at <a href="mailto:hello@nrkards.com">hello@nrkards.com</a> and we'll sort it out.</p>
+      </div>
+    </div>
+  </section>
+  
   <section class="block" id="order">
     <div class="eyebrow">Let us build you one</div>
     <h2 class="section-h">Tell us who to build around.</h2>
@@ -378,6 +485,7 @@ form.addEventListener('submit', async (e) => {
   submitBtn.textContent = 'Sending…';
 
   const payload = {
+    type: 'custom',
     name: form.name.value.trim(),
     kid: form.kid.value.trim(),
     pokemon: form.pokemon.value.trim(),
@@ -407,5 +515,80 @@ form.addEventListener('submit', async (e) => {
   document.getElementById(id).addEventListener('input', (e) => { e.target.style.borderColor = ''; });
 });
 </script>
+<script>
+// ── FORM 1: Order a pack → same Sheet, stamped type:'order' ──
+(function () {
+  const SHEET_ENDPOINT = 'PASTE_YOUR_APPS_SCRIPT_URL_HERE'; // same URL as the custom form
+  const form = document.getElementById('packForm');
+  const btn = document.getElementById('packBtn');
+  const ok = document.getElementById('packOk');
+  const err = document.getElementById('packErr');
+  const packSel = document.getElementById('p_pack');
+  const energySel = document.getElementById('p_energy');
+
+  // Shiny pack has no single type → disable energy + mark N/A
+  packSel.addEventListener('change', () => {
+    if (packSel.value === 'shiny pack') {
+      energySel.value = '';
+      energySel.disabled = true;
+      energySel.removeAttribute('required');
+      if (!energySel.querySelector('option[value="N/A"]')) {
+        const o = document.createElement('option');
+        o.value = 'N/A'; o.textContent = 'N/A — Shiny is mixed types'; o.selected = true;
+        energySel.appendChild(o);
+      } else {
+        energySel.querySelector('option[value="N/A"]').selected = true;
+      }
+    } else {
+      energySel.disabled = false;
+      energySel.setAttribute('required', '');
+      const na = energySel.querySelector('option[value="N/A"]');
+      if (na) na.remove();
+      if (!energySel.value) energySel.selectedIndex = 0;
+    }
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    err.classList.remove('show');
+    const required = [['p_name','name'],['p_email','email'],['p_address','address'],['p_pack','pack']];
+    for (const [id] of required) {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) { el.focus(); el.style.borderColor = 'var(--fire)'; return; }
+    }
+    if (!energySel.disabled && !energySel.value) { energySel.focus(); energySel.style.borderColor = 'var(--fire)'; return; }
+
+    btn.disabled = true; btn.textContent = 'Sending…';
+    const payload = {
+      type: 'order',
+      name: form.name.value.trim(),
+      email: form.email.value.trim(),
+      address: form.address.value.trim(),
+      pack: form.pack.value,
+      energy: energySel.disabled ? 'N/A' : energySel.value,
+      notes: form.notes.value.trim(),
+      submittedAt: new Date().toISOString(),
+    };
+    try {
+      await fetch(SHEET_ENDPOINT, {
+        method: 'POST', mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload),
+      });
+      form.style.display = 'none';
+      ok.classList.add('show');
+      ok.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } catch (e2) {
+      err.classList.add('show');
+      btn.disabled = false; btn.textContent = 'Send my order';
+    }
+  });
+
+  [['p_name'],['p_email'],['p_address'],['p_pack'],['p_energy']].forEach(([id]) => {
+    document.getElementById(id).addEventListener('input', (e) => { e.target.style.borderColor = ''; });
+    document.getElementById(id).addEventListener('change', (e) => { e.target.style.borderColor = ''; });
+  });
+})();
+</script>  
 </body>
 </html>
