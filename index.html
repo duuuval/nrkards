@@ -398,8 +398,8 @@ footer .sib { margin-top: 10px; opacity: 0.8; }
           <select id="p_pack" name="pack" required>
             <option value="" disabled selected>Choose a pack…</option>
             <option value="10-card team pack">10-Card Team Pack — $5</option>
-            <option value="10-card All Holo Pack">10-card All Holo Pack — $7</option>
             <option value="15-card team HIT pack">15-Card Team HIT Pack — $10</option>
+            <option value="all-holo pack">10-Card All Holo Pack — $7</option>
           </select>
         </div>
         <div class="field">
@@ -433,7 +433,7 @@ footer .sib { margin-top: 10px; opacity: 0.8; }
       </form>
 
       <div class="form-status ok" id="packOk">
-        <div class="big">Order sent!</div>
+        <div class="big">Request sent!</div>
         <p>We'll email you to confirm it's ready and send payment info,<br>then bring it on our next run.</p>
       </div>
 
@@ -506,7 +506,9 @@ footer .sib { margin-top: 10px; opacity: 0.8; }
 </footer>
 
 <script>
+// ▼▼▼ PASTE YOUR APPS SCRIPT /exec URL HERE — this is the ONLY place now ▼▼▼
 const SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwiRGFF4tyry3qmkp7XWPLzkn4cKOPHHn3ggmWRXmWv2kk5KZbWltuM0k23K_9L70aG/exec';
+// ▲▲▲ it's the same /exec URL you already deployed; both forms read this one ▲▲▲
 
 const form = document.getElementById('orderForm');
 const submitBtn = document.getElementById('submitBtn');
@@ -560,7 +562,7 @@ form.addEventListener('submit', async (e) => {
 <script>
 // ── FORM 1: Order a pack → same Sheet, stamped type:'order' ──
 (function () {
-  const SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwiRGFF4tyry3qmkp7XWPLzkn4cKOPHHn3ggmWRXmWv2kk5KZbWltuM0k23K_9L70aG/exec'; // same URL as the custom form
+  // SHEET_ENDPOINT is declared once, up in the first script block above.
   const form = document.getElementById('packForm');
   const btn = document.getElementById('packBtn');
   const ok = document.getElementById('packOk');
@@ -568,24 +570,24 @@ form.addEventListener('submit', async (e) => {
   const packSel = document.getElementById('p_pack');
   const energySel = document.getElementById('p_energy');
 
-  // Shiny pack has no single type → disable energy + mark N/A
+  // All Holo Pack contains one of every type → lock the type selector to "All"
   packSel.addEventListener('change', () => {
-    if (packSel.value === 'shiny pack') {
+    if (packSel.value === 'all-holo pack') {
       energySel.value = '';
       energySel.disabled = true;
       energySel.removeAttribute('required');
-      if (!energySel.querySelector('option[value="N/A"]')) {
+      if (!energySel.querySelector('option[value="All"]')) {
         const o = document.createElement('option');
-        o.value = 'N/A'; o.textContent = 'N/A — Shiny is mixed types'; o.selected = true;
+        o.value = 'All'; o.textContent = 'All — one of each type'; o.selected = true;
         energySel.appendChild(o);
       } else {
-        energySel.querySelector('option[value="N/A"]').selected = true;
+        energySel.querySelector('option[value="All"]').selected = true;
       }
     } else {
       energySel.disabled = false;
       energySel.setAttribute('required', '');
-      const na = energySel.querySelector('option[value="N/A"]');
-      if (na) na.remove();
+      const all = energySel.querySelector('option[value="All"]');
+      if (all) all.remove();
       if (!energySel.value) energySel.selectedIndex = 0;
     }
   });
@@ -615,7 +617,7 @@ form.addEventListener('submit', async (e) => {
       email: form.email.value.trim(),
       address: form.address.value.trim(),
       pack: form.pack.value,
-      energy: energySel.disabled ? 'N/A' : energySel.value,
+      energy: energySel.disabled ? 'All' : energySel.value,
       notes: form.notes.value.trim(),
       submittedAt: new Date().toISOString(),
     };
