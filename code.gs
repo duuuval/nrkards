@@ -8,26 +8,28 @@
  * On each submit it (1) appends a row to the "Orders" tab and
  * (2) emails OWNER_EMAIL so nothing sits unseen in the Sheet.
  *
- * DEPLOY:
- *   1. Create a Google Sheet while signed in as nrkards@gmail.com.
- *   2. Extensions → Apps Script → paste this file → Save.
- *   3. Deploy → New deployment → type "Web app".
- *        Execute as:  Me (nrkards@gmail.com)
- *        Who has access:  Anyone
- *      Copy the .../exec URL.
- *   4. Paste that URL into BOTH SHEET_ENDPOINT constants in index.html
- *      (there are two — one per <script> block).
- *   5. The first submit will prompt you to authorize MailApp — approve it.
+ * SETUP:
+ *   1. Open your Google Sheet (signed in as nrkards@gmail.com).
+ *   2. Copy its ID from the URL — the chunk between /d/ and /edit:
+ *        docs.google.com/spreadsheets/d/THIS_PART/edit
+ *      Paste it into SHEET_ID below.
+ *   3. Save.
+ *   4. In the editor, choose "doGet" in the function dropdown → Run.
+ *      Approve BOTH permission prompts (Sheets + Gmail). This authorizes it.
+ *   5. Deploy → Manage deployments → edit (pencil) → Version: New version → Deploy.
+ *      (If no deployment exists yet: Deploy → New deployment → Web app,
+ *       Execute as: Me, Who has access: Anyone. Copy the .../exec URL.)
+ *   6. The /exec URL goes in BOTH SHEET_ENDPOINT constants in index.html.
  */
 
 const OWNER_EMAIL = 'nrkards@gmail.com';
 const SHEET_NAME  = 'Orders';
+const SHEET_ID    = '1hMu8SdgAK-D4h4CFsX9dnhBtSsasa9Br45CyvF98MDE';   // ← the chunk between /d/ and /edit in your Sheet URL
 
 function doPost(e) {
   try {
     const data = JSON.parse(e.postData.contents);
     const email = data.email || data.contact || '';   // order uses `email`, custom uses `contact`
-
     getSheet().appendRow([
       data.submittedAt || new Date().toISOString(),
       data.type    || '',
@@ -40,7 +42,6 @@ function doPost(e) {
       data.pokemon || '',
       data.notes   || ''
     ]);
-
     notifyOwner(data, email);
     return json({ ok: true });
   } catch (err) {
@@ -58,7 +59,7 @@ function doGet() {
 }
 
 function getSheet() {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const ss = SpreadsheetApp.openById(SHEET_ID);
   let sheet = ss.getSheetByName(SHEET_NAME);
   if (!sheet) {
     sheet = ss.insertSheet(SHEET_NAME);
@@ -71,11 +72,9 @@ function getSheet() {
 
 function notifyOwner(data, email) {
   const isOrder = data.type === 'order';
-
   const subject = isOrder
     ? 'New pack order — ' + (data.name || 'someone')
     : 'New custom request — ' + (data.name || 'someone');
-
   let body;
   if (isOrder) {
     body =
@@ -96,7 +95,6 @@ function notifyOwner(data, email) {
       'Notes:   ' + (data.notes   || '—') + '\n';
   }
   body += '\nSubmitted: ' + (data.submittedAt || new Date().toISOString());
-
   // replyTo = customer's email so you can just hit "Reply" to answer them.
   MailApp.sendEmail({
     to: OWNER_EMAIL,
