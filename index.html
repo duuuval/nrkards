@@ -544,89 +544,134 @@ footer .sib { margin-top: 10px; opacity: 0.8; }
   <div class="sib">Like playing games? Check out our creations: <a href="https://nrkade.com" target="_blank" rel="noopener">NRKade</a></div>
 </footer>
 
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     Endpoint. Declared once, read by every form on the page.
+════════════════════════════════════════════════════════════════════════════ -->
 <script>
-// ▼▼▼ PASTE YOUR APPS SCRIPT /exec URL HERE — this is the ONLY place now ▼▼▼
 const SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwiRGFF4tyry3qmkp7XWPLzkn4cKOPHHn3ggmWRXmWv2kk5KZbWltuM0k23K_9L70aG/exec';
-// ▲▲▲ it's the same /exec URL you already deployed; both forms read this one ▲▲▲
 
-const form = document.getElementById('orderForm');
-const submitBtn = document.getElementById('submitBtn');
-const statusOk = document.getElementById('statusOk');
-const statusErr = document.getElementById('statusErr');
+/**
+ * Shared submit handler.
+ *
+ * The site posts no-cors, so the browser can't read the response — a failure
+ * inside Apps Script looks exactly like success from here. That's on purpose
+ * (it avoids a CORS preflight), and the backend emails you on error instead.
+ */
+async function postToSheet(payload) {
+  await fetch(SHEET_ENDPOINT, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify(payload),
+  });
+}
 
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  statusErr.classList.remove('show');
-
-  const required = ['name', 'contact', 'request'];
-  for (const id of required) {
+/** Clear the red border as soon as someone starts fixing the field. */
+function clearOnInput(ids) {
+  ids.forEach(function (id) {
     const el = document.getElementById(id);
-    if (!el.value.trim()) { el.focus(); el.style.borderColor = 'var(--fire)'; return; }
-  }
-
-  submitBtn.disabled = true;
-  submitBtn.textContent = 'Sending…';
-
-  const payload = {
-    type: 'custom',
-    name: form.name.value.trim(),
-    kid: form.kid.value.trim(),
-    request: form.request.value.trim(),
-    contact: form.contact.value.trim(),
-    submittedAt: new Date().toISOString(),
-  };
-
-  try {
-    await fetch(SHEET_ENDPOINT, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify(payload),
-    });
-    form.style.display = 'none';
-    statusOk.classList.add('show');
-    statusOk.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  } catch (err) {
-    statusErr.classList.add('show');
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'Send my request';
-  }
-});
-
-['name','contact','request'].forEach(id => {
-  document.getElementById(id).addEventListener('input', (e) => { e.target.style.borderColor = ''; });
-});
+    if (!el) return;
+    const clear = function (e) { e.target.style.borderColor = ''; };
+    el.addEventListener('input', clear);
+    el.addEventListener('change', clear);
+  });
+}
 </script>
 
 <!-- ═══════════════════════════════════════════════════════════════════════════
-     FORM 1 script ("Order a pack") — PARKED alongside its markup above.
-     Uncomment this together with the #order-pack section.
+     LIVE — "Get in touch" contact form.
+     Field ids: name, kid, contact, request
+     Payload keys must match, and the Apps Script maps them by header name.
+════════════════════════════════════════════════════════════════════════════ -->
+<script>
+(function () {
+  const form = document.getElementById('orderForm');
+  if (!form) return;
+
+  const btn = document.getElementById('submitBtn');
+  const ok = document.getElementById('statusOk');
+  const err = document.getElementById('statusErr');
+
+  const val = function (id) {
+    const el = document.getElementById(id);
+    return el ? el.value.trim() : '';
+  };
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    err.classList.remove('show');
+
+    for (const id of ['name', 'contact', 'request']) {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) {
+        el.focus();
+        el.style.borderColor = 'var(--fire)';
+        return;
+      }
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    try {
+      await postToSheet({
+        type: 'custom',
+        name: val('name'),
+        kid: val('kid'),
+        contact: val('contact'),
+        request: val('request'),
+        submittedAt: new Date().toISOString(),
+      });
+      form.style.display = 'none';
+      ok.classList.add('show');
+      ok.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } catch (e2) {
+      err.classList.add('show');
+      btn.disabled = false;
+      btn.textContent = 'Send my request';
+    }
+  });
+
+  clearOnInput(['name', 'kid', 'contact', 'request']);
+})();
+</script>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     PARKED — "Order a pack" fast-path form.
+     Uncomment this together with the #order-pack section up in the markup.
+     Safe either way: the guard below no-ops if the markup is still commented.
 ════════════════════════════════════════════════════════════════════════════ -->
 <!--
 <script>
 (function () {
-  // SHEET_ENDPOINT is declared once, up in the first script block above.
   const form = document.getElementById('packForm');
   if (!form) return;
+
   const btn = document.getElementById('packBtn');
   const ok = document.getElementById('packOk');
   const err = document.getElementById('packErr');
   const packSel = document.getElementById('p_pack');
   const energySel = document.getElementById('p_energy');
 
-  // HIT + Holos Pack contains one of every type → lock the type selector to "All"
-  packSel.addEventListener('change', () => {
+  const val = function (id) {
+    const el = document.getElementById(id);
+    return el ? el.value.trim() : '';
+  };
+
+  // HIT + Holos Pack is one card per energy, so lock the type selector to "All".
+  packSel.addEventListener('change', function () {
     if (packSel.value === '10-card HIT + holos pack') {
       energySel.value = '';
       energySel.disabled = true;
       energySel.removeAttribute('required');
-      if (!energySel.querySelector('option[value="All"]')) {
-        const o = document.createElement('option');
-        o.value = 'All'; o.textContent = 'All — one of each type'; o.selected = true;
-        energySel.appendChild(o);
-      } else {
-        energySel.querySelector('option[value="All"]').selected = true;
+      let all = energySel.querySelector('option[value="All"]');
+      if (!all) {
+        all = document.createElement('option');
+        all.value = 'All';
+        all.textContent = 'All — one of each type';
+        energySel.appendChild(all);
       }
+      all.selected = true;
     } else {
       energySel.disabled = false;
       energySel.setAttribute('required', '');
@@ -636,56 +681,57 @@ form.addEventListener('submit', async (e) => {
     }
   });
 
-  // nudge the notes placeholder when "Multiple / not sure" is chosen
-  energySel.addEventListener('change', () => {
+  // Nudge the notes placeholder when "Multiple / not sure" is chosen.
+  energySel.addEventListener('change', function () {
     const notes = document.getElementById('p_notes');
-    if (energySel.value === 'Multiple / not sure') {
-      notes.placeholder = "Tell us the types you want (e.g. Fire, Water, Grass for 3 packs) or describe what you're after.";
-    } else {
-      notes.placeholder = "Want more than one pack? A note for us? Tell us here.";
-    }
+    notes.placeholder = energySel.value === 'Multiple / not sure'
+      ? "Tell us the types you want (e.g. Fire, Water, Grass for 3 packs) or describe what you're after."
+      : "Want more than one pack? A note for us? Tell us here.";
   });
 
-  form.addEventListener('submit', async (e) => {
+  form.addEventListener('submit', async function (e) {
     e.preventDefault();
     err.classList.remove('show');
-    const required = [['p_name','name'],['p_email','email'],['p_address','address'],['p_pack','pack']];
-    for (const [id] of required) {
-      const el = document.getElementById(id);
-      if (!el.value.trim()) { el.focus(); el.style.borderColor = 'var(--fire)'; return; }
-    }
-    if (!energySel.disabled && !energySel.value) { energySel.focus(); energySel.style.borderColor = 'var(--fire)'; return; }
 
-    btn.disabled = true; btn.textContent = 'Sending…';
-    const payload = {
-      type: 'order',
-      name: form.name.value.trim(),
-      email: form.email.value.trim(),
-      address: form.address.value.trim(),
-      pack: form.pack.value,
-      energy: energySel.disabled ? 'All' : energySel.value,
-      notes: form.notes.value.trim(),
-      submittedAt: new Date().toISOString(),
-    };
+    for (const id of ['p_name', 'p_email', 'p_address', 'p_pack']) {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) {
+        el.focus();
+        el.style.borderColor = 'var(--fire)';
+        return;
+      }
+    }
+    if (!energySel.disabled && !energySel.value) {
+      energySel.focus();
+      energySel.style.borderColor = 'var(--fire)';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
     try {
-      await fetch(SHEET_ENDPOINT, {
-        method: 'POST', mode: 'no-cors',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(payload),
+      await postToSheet({
+        type: 'order',
+        name: val('p_name'),
+        email: val('p_email'),
+        address: val('p_address'),
+        pack: val('p_pack'),
+        energy: energySel.disabled ? 'All' : energySel.value,
+        notes: val('p_notes'),
+        submittedAt: new Date().toISOString(),
       });
       form.style.display = 'none';
       ok.classList.add('show');
       ok.scrollIntoView({ behavior: 'smooth', block: 'center' });
     } catch (e2) {
       err.classList.add('show');
-      btn.disabled = false; btn.textContent = 'Send my request';
+      btn.disabled = false;
+      btn.textContent = 'Send my request';
     }
   });
 
-  [['p_name'],['p_email'],['p_address'],['p_pack'],['p_energy']].forEach(([id]) => {
-    document.getElementById(id).addEventListener('input', (e) => { e.target.style.borderColor = ''; });
-    document.getElementById(id).addEventListener('change', (e) => { e.target.style.borderColor = ''; });
-  });
+  clearOnInput(['p_name', 'p_email', 'p_address', 'p_pack', 'p_energy']);
 })();
 </script>
 -->
