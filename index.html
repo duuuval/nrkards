@@ -98,6 +98,16 @@ main { max-width: 1000px; margin: 0 auto; padding: 52px 24px 40px; }
 }
 .section-lead { color: var(--subtext); font-size: 16px; line-height: 1.65; margin-bottom: 28px; max-width: 620px; }
 .section-lead b { color: var(--text); font-weight: 800; }
+.section-lead + .section-lead { margin-top: -16px; }
+
+/* one link treatment for all body copy */
+.section-lead a, .step-d a, .next-bar-text a {
+  color: var(--gold); font-weight: 800;
+  text-decoration: underline; text-underline-offset: 3px;
+  text-decoration-color: var(--gold-line);
+  transition: text-decoration-color 0.15s;
+}
+.section-lead a:hover, .step-d a:hover, .next-bar-text a:hover { text-decoration-color: var(--gold); }
 
 .type-row { display:flex; flex-wrap:wrap; gap:9px; }
 .type-chip {
@@ -134,20 +144,25 @@ main { max-width: 1000px; margin: 0 auto; padding: 52px 24px 40px; }
   text-transform: uppercase; color: #0a0a0a; background: var(--gold); padding: 5px 11px; border-radius: 6px;
 }
 
+/* Next-table callout — the one re-engagement channel, so it gets real weight */
+.next-bar {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px;
+  background: linear-gradient(90deg, rgba(255,199,6,0.09) 0%, rgba(255,199,6,0.02) 70%);
+  border: 1px solid var(--gold-line); border-radius: 14px;
+  padding: 20px 24px; margin-top: 24px;
+}
+.next-bar.pre { margin-top: 0; margin-bottom: 26px; }
+.next-bar-label {
+  font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 12px;
+  letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); white-space: nowrap;
+}
+.next-bar-text { font-size: 16px; line-height: 1.55; color: var(--text); }
+
 .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
 .step { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 24px 22px; }
 .step-n { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 11.5px; letter-spacing: 2.5px; color: var(--gold); text-transform: uppercase; margin-bottom: 10px; }
 .step-h { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: -0.3px; margin-bottom: 7px; }
 .step-d { font-size: 14.5px; color: var(--subtext); line-height: 1.6; }
-.step-d a {
-  color: var(--text);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-  text-decoration-color: var(--gold-line);
-  font-weight: 700;
-  transition: color 0.15s, text-decoration-color 0.15s;
-}
-.step-d a:hover { color: var(--gold); text-decoration-color: var(--gold); }
   
 .order-wrap { background: var(--panel); border: 1px solid var(--border); border-radius: 18px; padding: 34px 28px; }
 .order-grid { display: grid; gap: 16px; }
@@ -253,7 +268,7 @@ footer .sib { margin-top: 10px; opacity: 0.8; }
 
 <header>
   <h1><img src="/assets/logo.png" alt="NRKards"></h1>
-  <div class="header-sub">A <b>father & son</b> team hand-building Pokémon packs from our dining room table</div>
+  <div class="header-sub">A <b>father &amp; son</b> team hand-building Pokémon packs from our dining room table</div>
 </header>
 
 <div class="marquee-wrap">
@@ -275,10 +290,14 @@ footer .sib { margin-top: 10px; opacity: 0.8; }
 
   <section>
     <div class="eyebrow">What we make</div>
-    <h2 class="section-h">Hand-built packs</h2>
-     <p class="section-lead">
-     We sort and stack every pack ourselves — built around an energy type, a favorite Pokémon,
-     or whatever you're after. <b>Tell us what you love and we'll put it together for you.</b>
+    <h2 class="section-h">Every card, picked by hand.</h2>
+    <p class="section-lead">
+      We sort through thousands of cards and thoughtfully build every pack ourselves. If we wouldn't
+      want to open it, you won't find us selling it.
+    </p>
+    <p class="section-lead">
+      And if there's a certain Pokémon your kid is chasing, or a fun theme they're building around — we can go find it and build a pack around
+      that instead. <a href="#order">Drop us a note and we'll get started.</a>
     </p>
     <!-- <div class="type-row">
        <span class="type-chip fire">🔥 Fire</span>
@@ -295,83 +314,47 @@ footer .sib { margin-top: 10px; opacity: 0.8; }
   </section>
 
   <section class="block">
-    <div class="eyebrow">Our packs</div>
-    <h2 class="section-h">Pick the one that's you.</h2>
-    <div class="pack-grid">
-
-      <div class="pack-card">
-        <!-- <div class="pack-tier">Starter</div> -->
-        <div class="pack-name">10-Card Energy Team Pack</div>
-        <div class="pack-price">$5<small> / pack</small></div>
-        <div class="pack-for">Perfect for kids buying their own</div>
-        <ul class="pack-list">
-          <li>1 team "captain" card</li>
-          <li>3 shiny holo / reverse holo cards</li>
-          <li>6 common cards</li>
-          <li>All cards the same energy type</li>
-        </ul>
-      </div>
-
-      <div class="pack-card">
-        <!-- <div class="pack-badge">Best Value</div> -->
-        <!-- <div class="pack-tier">Captain</div> -->
-        <div class="pack-name">10-Card Energy HIT Team Pack</div>
-        <div class="pack-price">$7<small> / pack</small></div>
-        <div class="pack-for">The full build — with the big hit</div>
-        <ul class="pack-list">
-          <li>1 team "captain" card</li>
-          <li><b>1 ultra-rare "hit" card — ex, V, VMAX or better</b></li>
-          <li>3 shiny holo / reverse holo cards</li>
-          <li>10 common cards</li>
-          <li>All cards the same energy type</li>
-        </ul>
-      </div>
-      
-      <!-- ════════════════════════════════════════════════════════════════════
-           SHINY PACK — experimental tier. To launch: delete this comment line
-           and the closing one below. To pull it: wrap it back up. The grid
-           auto-flows to 3 columns on desktop / 1 on mobile, so it just works.
-           Tweak price, card count, and what's inside as you dial it in.
-      ═════════════════════════════════════════════════════════════════════════ -->
-      <div class="pack-card premium">
-        <div class="pack-name">10-card HIT + Holos Pack</div>
-        <div class="pack-price">$10<small> / pack</small></div>
-        <div class="pack-for">All shine, no filler</div>
-        <ul class="pack-list">
-          <li><b>1 ultra-rare "hit" card — ex, V, VMAX or better</b></li>
-          <li><b>9 holos &amp; reverse holos</b></li>
-          <li>One card for each energy</li>
-          <li>A surprise every card — no commons</li>
-        </ul>
-      </div>
-     <!-- ════════════════════════════════════════════════════════════════════════ -->
-                
-    </div>
-  </section>
-
-  <section class="block">
     <div class="eyebrow">Where to find us</div>
     <h2 class="section-h">Three ways to get one.</h2>
+
     <div class="steps">
       <div class="step">
         <div class="step-n">At the table</div>
         <div class="step-h">Catch us out front</div>
-        <div class="step-d">Keep an eye on the <a href="https://www.facebook.com/groups/417587235780552" target="_blank" rel="noopener noreferrer">Woodlake Neighbors Facebook page</a> or just stop by when you see the table at the end of the driveway. Grab your pack, then take it home or open it right there with us!</div>
+        <div class="step-d">Stop by when you see the table at the end of the driveway. Grab your pack, then take it home or open it right there with us.</div>
       </div>
       <div class="step">
         <div class="step-n">Around the block</div>
         <div class="step-h">Order for delivery</div>
-        <div class="step-d">Neighbors living <b>in the Woodlake neighborhood</b> can order ahead and we'll deliver to your mailbox (pending availability). Pay by Venmo / Cash App once your pack's confirmed — <a href="#order-pack">reach out below</a> to get started.</div>
+        <div class="step-d">Neighbors living <b>in the Woodlake neighborhood</b> can order ahead and we'll deliver to your mailbox (pending availability). Pay by Venmo / Cash App once your pack's confirmed — <a href="#order">reach out below</a> to get started.</div>
       </div>
       <div class="step">
         <div class="step-n">Made to order</div>
         <div class="step-h">Request your custom pack(s)</div>
-        <div class="step-d">Want a pack built around one special Pokémon, or multiple packs for a special occasion? <a href="#order">Tell us below</a> and we'll track it down, check the price with you, and build it.</div>
+        <div class="step-d">Want a pack built around one special Pokémon, or multiple packs for a birthday? <a href="#order">Tell us below</a> and we'll track it down, check the price with you, and build it.</div>
+      </div>
+    </div>
+
+    <div class="next-bar">
+      <div class="next-bar-label">Next table</div>
+      <div class="next-bar-text">
+        We post the day and time on the
+        <a href="https://www.facebook.com/groups/417587235780552" target="_blank" rel="noopener noreferrer">Woodlake Neighbors Facebook page</a>
+        before we set up.
       </div>
     </div>
   </section>
 
-  <!-- ORDER A PACK (Form 1 — known SKU, fast path) -->
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       ORDER A PACK (fast path, known SKU) — PARKED FOR RUN 1.
+       Contents are current and correct as of this build; the pack dropdown
+       matches the three live tiers. To turn it back on: delete this comment
+       opener and the matching closer below the </section>, then do the same
+       for the "FORM 1" script block near the bottom of the file. Both must be
+       uncommented together — the script targets #packForm and will no-op
+       (harmlessly) if the markup is still commented out.
+  ════════════════════════════════════════════════════════════════════════════ -->
+  <!--
   <section class="block" id="order-pack">
     <div class="eyebrow">Order for delivery</div>
     <h2 class="section-h">Request a pack — we'll bring it to you.</h2>
@@ -398,9 +381,9 @@ footer .sib { margin-top: 10px; opacity: 0.8; }
           <label for="p_pack">Which pack <span class="req">*</span></label>
           <select id="p_pack" name="pack" required>
             <option value="" disabled selected>Choose a pack…</option>
-            <option value="10-card team pack">10-Card Team Pack — $5</option>
-            <option value="15-card team HIT pack">15-Card Team HIT Pack — $10</option>
-            <option value="all-holo pack">10-Card All Holo Pack — $7</option>
+            <option value="10-card energy team pack">10-Card Energy Team Pack — $5</option>
+            <option value="10-card energy HIT team pack">10-Card Energy HIT Team Pack — $7</option>
+            <option value="10-card HIT + holos pack">10-Card HIT + Holos Pack — $10</option>
           </select>
         </div>
         <div class="field">
@@ -444,16 +427,83 @@ footer .sib { margin-top: 10px; opacity: 0.8; }
       </div>
     </div>
   </section>
+  -->
+  <!-- ═══════════════ end parked "Order a pack" section ═══════════════ -->
   
-  <section class="block" id="order">
-    <div class="eyebrow">Let us build you one</div>
-    <h2 class="section-h">Tell us who to build around.</h2>
+  <section class="block">
+    <div class="eyebrow">The lineup</div>
+    <h2 class="section-h">The three packs we build.</h2>
     <p class="section-lead">
-      Give us the Pokémon you love — or tell us what it's for: birthday party favors, a
-      Valentine's pack, a whole team of types. We'll see what we can get our hands on, come
-      back to you with the price, and build it. <b>You're just asking — nothing's owed</b>
-      until we say yes and you say go.
+      These are always on the table. Want another one, or the tier you didn't grab?
+      <a href="#order">Tell us below.</a>
     </p>
+    <div class="pack-grid">
+
+      <div class="pack-card">
+        <!-- <div class="pack-tier">Starter</div> -->
+        <div class="pack-name">10-Card Energy Team Pack</div>
+        <div class="pack-price">$5<small> / pack</small></div>
+        <div class="pack-for">Perfect for kids buying their own</div>
+        <ul class="pack-list">
+          <li>1 team "captain" card</li>
+          <li>3 shiny holo / reverse holo cards</li>
+          <li>6 common cards</li>
+          <li>All cards the same energy type</li>
+        </ul>
+      </div>
+
+      <div class="pack-card">
+        <!-- <div class="pack-badge">Best Value</div> -->
+        <!-- <div class="pack-tier">Captain</div> -->
+        <div class="pack-name">10-Card Energy HIT Team Pack</div>
+        <div class="pack-price">$7<small> / pack</small></div>
+        <div class="pack-for">The full build — with the big hit</div>
+        <ul class="pack-list">
+          <li>1 team "captain" card</li>
+          <li><b>1 ultra-rare "hit" card — ex, V, VMAX or better</b></li>
+          <li>3 shiny holo / reverse holo cards</li>
+          <li>5 common cards</li>
+          <li>All cards the same energy type</li>
+        </ul>
+      </div>
+      
+      <!-- ════════════════════════════════════════════════════════════════════
+           SHINY PACK — experimental tier. To launch: delete this comment line
+           and the closing one below. To pull it: wrap it back up. The grid
+           auto-flows to 3 columns on desktop / 1 on mobile, so it just works.
+           Tweak price, card count, and what's inside as you dial it in.
+      ═════════════════════════════════════════════════════════════════════════ -->
+      <div class="pack-card premium">
+        <div class="pack-name">10-card HIT + Holos Pack</div>
+        <div class="pack-price">$10<small> / pack</small></div>
+        <div class="pack-for">All shine, no filler</div>
+        <ul class="pack-list">
+          <li><b>1 ultra-rare "hit" card — ex, V, VMAX or better</b></li>
+          <li><b>9 holos &amp; reverse holos</b></li>
+          <li>One card for each energy</li>
+          <li>A surprise every card — no commons</li>
+        </ul>
+      </div>
+     <!-- ════════════════════════════════════════════════════════════════════════ -->
+                
+    </div>
+  </section>
+
+  <section class="block" id="order">
+    <div class="eyebrow">Get in touch</div>
+    <h2 class="section-h">Tell us what you're after.</h2>
+    <p class="section-lead">
+      Want another pack, one built around a favorite Pokémon, or a whole team of types? Tell us
+      what you're after and we'll see what we can get our hands on, come back to you with the
+      price, and build it. <b>You're just asking — nothing's owed</b> until we say yes and you say go.
+    </p>
+    <div class="next-bar pre">
+      <div class="next-bar-label">Birthdays</div>
+      <div class="next-bar-text">
+        We can put together packs for the whole table, plus a card activity to go with them.
+        Tell us the date and how many kids and we'll work out the rest with you.
+      </div>
+    </div>
 
     <div class="order-wrap">
       <form id="orderForm" class="order-grid" novalidate>
@@ -466,16 +516,12 @@ footer .sib { margin-top: 10px; opacity: 0.8; }
           <input id="kid" name="kid" type="text" placeholder="Who's the pack for?">
         </div>
         <div class="field full">
-          <label for="pokemon">Favorite Pokémon / request <span class="req">*</span></label>
-          <input id="pokemon" name="pokemon" type="text" placeholder="e.g. Squirtle, Mewtwo, a Fire team…" required>
+          <label for="contact">Email <span class="req">*</span></label>
+          <input id="contact" name="contact" type="email" autocomplete="email" placeholder="How we reach you to confirm" required>
         </div>
         <div class="field full">
-          <label for="contact">Email<span class="req">*</span></label>
-          <input id="contact" name="contact" type="text" autocomplete="email" placeholder="How we reach you to confirm" required>
-        </div>
-        <div class="field full">
-          <label for="notes">Occasion or notes <span class="opt">(optional)</span></label>
-          <textarea id="notes" name="notes" placeholder="Birthday party favors, Valentine's, how many packs, delivery vs. pickup… anything goes."></textarea>
+          <label for="request">What can we build for you? <span class="req">*</span></label>
+          <textarea id="request" name="request" placeholder="A favorite Pokémon, an energy type, more packs, party packs for a birthday, delivery vs. pickup… anything goes." required></textarea>
         </div>
         <div class="field full">
           <button type="submit" class="submit-btn" id="submitBtn">Send my request</button>
@@ -488,7 +534,7 @@ footer .sib { margin-top: 10px; opacity: 0.8; }
 
       <div class="form-status ok" id="statusOk">
         <div class="big">Request sent!</div>
-        <p>We'll reach out soon to confirm your pack and the price.<br>Keep an eye on your inbox or texts.</p>
+        <p>We'll reach out soon to confirm your pack and the price.<br>Keep an eye on your inbox.</p>
       </div>
 
       <div class="form-status err" id="statusErr">
@@ -520,7 +566,7 @@ form.addEventListener('submit', async (e) => {
   e.preventDefault();
   statusErr.classList.remove('show');
 
-  const required = ['name', 'pokemon', 'contact'];
+  const required = ['name', 'contact', 'request'];
   for (const id of required) {
     const el = document.getElementById(id);
     if (!el.value.trim()) { el.focus(); el.style.borderColor = 'var(--fire)'; return; }
@@ -533,9 +579,8 @@ form.addEventListener('submit', async (e) => {
     type: 'custom',
     name: form.name.value.trim(),
     kid: form.kid.value.trim(),
-    pokemon: form.pokemon.value.trim(),
+    request: form.request.value.trim(),
     contact: form.contact.value.trim(),
-    notes: form.notes.value.trim(),
     submittedAt: new Date().toISOString(),
   };
 
@@ -556,24 +601,30 @@ form.addEventListener('submit', async (e) => {
   }
 });
 
-['name','pokemon','contact'].forEach(id => {
+['name','contact','request'].forEach(id => {
   document.getElementById(id).addEventListener('input', (e) => { e.target.style.borderColor = ''; });
 });
 </script>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     FORM 1 script ("Order a pack") — PARKED alongside its markup above.
+     Uncomment this together with the #order-pack section.
+════════════════════════════════════════════════════════════════════════════ -->
+<!--
 <script>
-// ── FORM 1: Order a pack → same Sheet, stamped type:'order' ──
 (function () {
   // SHEET_ENDPOINT is declared once, up in the first script block above.
   const form = document.getElementById('packForm');
+  if (!form) return;
   const btn = document.getElementById('packBtn');
   const ok = document.getElementById('packOk');
   const err = document.getElementById('packErr');
   const packSel = document.getElementById('p_pack');
   const energySel = document.getElementById('p_energy');
 
-  // All Holo Pack contains one of every type → lock the type selector to "All"
+  // HIT + Holos Pack contains one of every type → lock the type selector to "All"
   packSel.addEventListener('change', () => {
-    if (packSel.value === 'all-holo pack') {
+    if (packSel.value === '10-card HIT + holos pack') {
       energySel.value = '';
       energySel.disabled = true;
       energySel.removeAttribute('required');
@@ -592,6 +643,7 @@ form.addEventListener('submit', async (e) => {
       if (!energySel.value) energySel.selectedIndex = 0;
     }
   });
+
   // nudge the notes placeholder when "Multiple / not sure" is chosen
   energySel.addEventListener('change', () => {
     const notes = document.getElementById('p_notes');
@@ -601,6 +653,7 @@ form.addEventListener('submit', async (e) => {
       notes.placeholder = "Want more than one pack? A note for us? Tell us here.";
     }
   });
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     err.classList.remove('show');
@@ -642,6 +695,7 @@ form.addEventListener('submit', async (e) => {
     document.getElementById(id).addEventListener('change', (e) => { e.target.style.borderColor = ''; });
   });
 })();
-</script>  
+</script>
+-->
 </body>
 </html>
